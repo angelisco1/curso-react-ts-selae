@@ -1,11 +1,13 @@
 import React, { type JSX } from 'react'
 import './Sugus.css'
 import { styles as SugusStyles } from './Sugus.styles'
+import { type SugusProps } from '../interfaces/Sugus' 
 
-interface SugusProps {
+//Este bloque al interfaces/Sugus.ts
+/* interface SugusProps {
   color: string,
   sabor: string
-}
+} */
 
 /* const Sugus = ({sabor = 'limón', color = 'yellow'}: SugusProps): JSX.Element => {
   const estilos = {

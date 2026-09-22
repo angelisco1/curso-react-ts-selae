@@ -9,4 +9,4 @@ export const styles: { envoltorio: React.CSSProperties }  = {
         margin: '10px',
         overflow: 'hidden',
     }
-} 
+}
