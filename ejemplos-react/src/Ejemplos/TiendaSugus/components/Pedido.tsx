@@ -1,10 +1,18 @@
 import React from 'react'
 import type { PedidoProps, ProductoPedido } from '../types/TiendaSugus.types'
 
-const Pedido = ({pedido}: PedidoProps) => {
+const PRECIO_SUGUS: number = 0.25
+
+const Pedido = ({pedido, comprar}: PedidoProps) => {
+  let totalPedido = 0
 
   const itemsPedido = pedido.map((itemPedido: ProductoPedido) => {
-    return <li></li>
+    const precioItem = itemPedido.cantidad * PRECIO_SUGUS
+    totalPedido += precioItem
+    
+    return <li key={itemPedido.sabor}>
+        {itemPedido.cantidad} de {itemPedido.sabor} = {precioItem}€
+      </li>
   })
 
 
@@ -16,6 +24,8 @@ const Pedido = ({pedido}: PedidoProps) => {
         {itemsPedido}
       </ul>
 
+      <p>Total: {totalPedido}€</p>
+      <button type="button" onClick={comprar}>Comprar</button>
     </div>
   )
 }

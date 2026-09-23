@@ -14,4 +14,5 @@ export interface ProductosProps {
 
 export interface PedidoProps {
   pedido: PedidoType,
+  comprar: () => void,
 }

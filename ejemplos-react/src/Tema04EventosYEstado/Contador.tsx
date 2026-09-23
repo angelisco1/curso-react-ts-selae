@@ -9,8 +9,20 @@ const Contador = () => {
 
   const decrementarCuenta = () => {
     if (cuenta > 0) {
+      
+      // Para cambiar el estado siempre se usa el setter
       // cuenta = cuenta - 1
-      setCuenta(cuenta - 1)
+      //setCuenta(cuenta - 1)
+
+      // React agrupa en lotes los cambios de estado
+      //setCuenta(cuenta - 1)
+      //setCuenta(cuenta - 1)
+      //setCuenta(cuenta - 1)
+
+      // Si necesitamos actualizar el estado varias veces de una, entonces hay que utilizar la función como se muestra aquí
+      setCuenta((prevCuenta: number) => prevCuenta - 1)
+      setCuenta((prevCuenta: number) => prevCuenta - 1)
+      setCuenta((prevCuenta: number) => prevCuenta - 1)
     }
   }
 
