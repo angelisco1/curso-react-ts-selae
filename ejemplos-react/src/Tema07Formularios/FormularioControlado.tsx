@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import { useInputField } from '../hooks/useInputField'
+import type { ErrorType } from '../interfaces/Validations'
 
 const FormularioControlado = () => {
   // const [datosForm, setDatosForm] = useState<any>({
@@ -7,13 +9,22 @@ const FormularioControlado = () => {
   //   password: ''
   // })
 
-  const [username, setUsername] = useState<string>('angel')
-  const [erroresUsername, setErroresUsername] = useState<Array<string>>([])
+  // const [username, setUsername] = useState<string>('angel')
+  // const [erroresUsername, setErroresUsername] = useState<Array<string>>([])
 
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
+  const [username, setUsername, erroresUsername] = useInputField('charly', { minLength: 5 })
 
-  useEffect(() => {
+  const [email, setEmail, erroresEmail] = useInputField('', {
+    pattern: '[a-z]{3,}@[a-z]{3,}\.[a-z]{2,}'
+  })
+
+  const [password, setPassword, erroresPassword] = useInputField('', {
+    minLength: 8,
+    withMayus: true,
+    withSymbols: ['.', '_', '!', '$']
+  })
+
+  /* useEffect(() => {
     const errores = []
 
     if (username.length < 4) {
@@ -22,7 +33,7 @@ const FormularioControlado = () => {
 
     setErroresUsername(errores)
 
-  }, [username])
+  }, [username]) */
 
 
   const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
@@ -39,8 +50,16 @@ const FormularioControlado = () => {
   }
 
   // Aquí mejor añadir con el error un identificador para la key
-  const listaErroresUsername = erroresUsername.map((err: string, pos: number) => {
-    return <li key={pos}>{err}</li>
+  const listaErroresUsername = erroresUsername.map((err: ErrorType, pos: number) => {
+    return <li key={err.key}>{err.message}</li>
+  })
+
+  const listaErroresEmail = erroresEmail.map((err: ErrorType) => {
+    return <li key={err.key}>{err.message}</li>
+  })
+
+  const listaErroresPassword = erroresPassword.map((err: ErrorType) => {
+    return <li key={err.key}>{err.message}</li>
   })
 
   return (
@@ -64,6 +83,7 @@ const FormularioControlado = () => {
             id="email"
             value={email}
             onInput={(e) => setEmail((e.target as HTMLInputElement).value)} />
+          {listaErroresEmail.length > 0 && <ul>{listaErroresEmail}</ul>}
         </div>
         <div>
           <label htmlFor="password">Password:</label>
@@ -72,7 +92,10 @@ const FormularioControlado = () => {
             id="password"
             value={password}
             onInput={(e) => setPassword((e.target as HTMLInputElement).value)} />
+          {listaErroresPassword.length > 0 && <ul>{listaErroresPassword}</ul>}
         </div>
+
+        {/* <InputField label="password" type="password" value={password} onInput={setPassword} errors={erroresPassword} /> */}
 
         <button type="submit">Guardar</button>
       </form>

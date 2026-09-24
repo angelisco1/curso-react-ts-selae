@@ -113,3 +113,34 @@ code {
 .flex {
   display: flex;
 }
+
+.caja {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border: 1px solid black;
+}
+
+.acordeon {
+  width: 500px;
+  border: 1px solid black;
+  overflow: hidden;
+}
+
+.acordeon.abierto {
+  height: 400px;
+}
+
+.acordeon.cerrado {
+  height: 30px;
+}
+
+.acordeon .header {
+  text-align: center;
+  border-bottom: 1px solid black;
+  height: auto;
+}
+
+.acordeon .body {
+  padding: 5px;
+}
