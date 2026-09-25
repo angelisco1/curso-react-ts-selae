@@ -1,90 +1,63 @@
 import React, { useEffect, useState } from 'react'
-import Productos from './components/Productos'
-import type { PedidoType, ProductoPedido } from './types/TiendaSugus.types'
+import Productos from './pages/Productos'
+import type { UserType, PedidoType, ProductoPedido } from './types/TiendaSugus.types'
 import type { SugusProps } from '../../interfaces/Sugus'
-import Pedido from './components/Pedido'
+import Pedido from './pages/Pedido'
+import Navbar from './components/Navbar'
+import { Navigate, Route, Routes } from 'react-router'
+import Login from './pages/Login'
+import MisPedidos from './pages/MisPedidos'
+import { UserCtx } from './contexts/UserCtx'
+import DetallePedido from './pages/DetallePedido'
+import Error404 from './pages/Error404'
 
-const KEY_LS = 'pedido'
+
 
 const TiendaSugus = () => {
-  const [listaSugus, setListaSugus] = useState<Array<SugusProps>>([
-    {
-      color: 'blue',
-      sabor: 'piña',
-    },
-    {
-      color: 'orange',
-      sabor: 'naranja',
-    },
-    {
-      color: 'red',
-      sabor: 'fresa',
-    },
-    {
-      color: 'yellow',
-      sabor: 'limón',
+  const [user, setUser] = useState<UserType | null>(() => {
+    const user = localStorage.getItem('user')
+    if (user) {
+      return JSON.parse(user)
     }
-  ]) 
-
-  const [pedido, setPedido] = useState<PedidoType>(() => {
-    const pedidoGuardado = localStorage.getItem(KEY_LS)
-    if (pedidoGuardado) {
-      return JSON.parse(pedidoGuardado)
-    }
-    return []
+    return null
   })
 
-  useEffect(() => {
-    const pedidoStr = JSON.stringify(pedido)
-    localStorage.setItem(KEY_LS, pedidoStr)
-  }, [pedido])
-
-
-  const addSugusPedido = (sabor: string) => {
-
-    const estaElSugus = pedido.find((productoPedido: ProductoPedido) => {
-      if (productoPedido.sabor === sabor) {
-        return true
-      }
-      return false
-    })
-
-    if (!estaElSugus) {
-      const sugusToAdd: ProductoPedido = {
-        sabor: sabor,
-        cantidad: 1
-      }
-
-      // [] -> [sugus1] -> [sugus1, sugus2]
-      const pedidoActualizado = [...pedido, sugusToAdd] 
-      setPedido(pedidoActualizado)
-
-      return
-    }
-
-    const pedidoActualizado = pedido.map((productoPedido: ProductoPedido) => {
-      if (productoPedido.sabor === sabor) {
-        productoPedido.cantidad += 1
-      }
-      return productoPedido
-    })
-
-    setPedido(pedidoActualizado)
-  }
-
-  const clearPedido = () => {
-    setPedido([])
-  }
+  // const clearPedido = () => {
+  //   setPedido([])
+  // }
 
   return (
     <div>
-      <h2>Tienda de sugus</h2>
+      <UserCtx.Provider value={{user, setUser}}>
 
-      <Productos
+        <Navbar />
+
+        <Routes>
+          <Route path="/" element={<Navigate to="/productos" />} />
+
+          <Route path="/productos" Component={Productos} />
+          <Route path="/login" Component={Login} />
+          {user && (
+            <>
+              {/* <Route path="/pedidos" Component={MisPedidos} />
+              <Route path="/pedidos/:pedidoId" Component={DetallePedido} /> */}
+              
+              <Route path="/pedidos" Component={MisPedidos}>
+                <Route path=":pedidoId" Component={DetallePedido} />
+              </Route>
+            </>
+          )}
+
+          <Route path="*" Component={Error404} />
+        </Routes>
+
+      </UserCtx.Provider>
+      
+      {/* <Productos
         listaSugus={listaSugus}
         addSugusPedido={addSugusPedido} />
 
-      <Pedido pedido={pedido} comprar={clearPedido} />
+      <Pedido pedido={pedido} comprar={clearPedido} /> */}
 
     </div>
   )

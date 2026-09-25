@@ -1,3 +1,4 @@
+import { BrowserRouter } from 'react-router'
 import './App.css'
 import TiendaSugus from './Ejemplos/TiendaSugus/TiendaSugus'
 import Tema01Componentes from './Tema01Componentes/Tema01Componentes'
@@ -10,6 +11,7 @@ import Tema07Formularios from './Tema07Formularios/Tema07Formularios'
 import Tema08UseContext from './Tema08UseContext/Tema08UseContext'
 import Tema09OtrosHooks from './Tema09OtrosHooks/Tema09OtrosHooks'
 import Tema10PropChildren from './Tema10PropChildren/Tema10PropChildren'
+import Tema11Portals from './Tema11Portals/Tema11Portals'
 
 function App() {
   return (
@@ -24,8 +26,13 @@ function App() {
       {/* <Tema07Formularios /> */}
       {/* <Tema08UseContext /> */}
       {/* <Tema09OtrosHooks /> */}
-      <Tema10PropChildren />
-      {/* <TiendaSugus /> */}
+      {/* <Tema10PropChildren /> */}
+      {/* <Tema11Portals /> */}
+
+      <BrowserRouter>
+        <TiendaSugus />
+      </BrowserRouter>
+
     </div>
   )
 }

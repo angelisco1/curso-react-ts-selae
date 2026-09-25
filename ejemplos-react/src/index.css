@@ -144,3 +144,24 @@ code {
 .acordeon .body {
   padding: 5px;
 }
+
+
+#portal {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#portal > div {
+  position: relative;
+  width: 100vw;
+}
+
+#portal .modal {
+  margin: 0 auto;
+  height: 300px;
+  width: 500px;
+  border: 1px solid black;
+  box-shadow: 10px 10px 10px;
+  background-color: white;
+}

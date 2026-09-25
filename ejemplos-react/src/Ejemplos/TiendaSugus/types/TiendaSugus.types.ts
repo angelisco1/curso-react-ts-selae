@@ -16,3 +16,10 @@ export interface PedidoProps {
   pedido: PedidoType,
   comprar: () => void,
 }
+
+
+export interface UserType {
+  id: number,
+  name: string,
+  email: string
+}

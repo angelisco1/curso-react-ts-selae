@@ -1,0 +1,46 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Charly",
+      "email": "cfalco@gmail.com",
+      "password": "1234"
+    }
+  ],
+  "products": [
+    {
+      "color": "blue",
+      "sabor": "piña"
+    },
+    {
+      "color": "orange",
+      "sabor": "naranja"
+    },
+    {
+      "color": "red",
+      "sabor": "fresa"
+    },
+    {
+      "color": "yellow",
+      "sabor": "limón"
+    }
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "userId": 1,
+      "products": [
+        { "name": "fresa", "quantity": 2, "price": 0.5 },
+        { "name": "limón", "quantity": 1, "price": 0.25 }
+      ]
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "products": [
+        { "name": "naranja", "quantity": 3, "price": 0.75 },
+        { "name": "limón", "quantity": 2, "price": 0.5 }
+      ]
+    }
+  ]
+}

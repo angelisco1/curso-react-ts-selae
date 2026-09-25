@@ -28,7 +28,7 @@ const reducer = (currentState: Position, action: Action) => {
 
 
 const Tema09OtrosHooks = () => {
-  const [position, dispatch] = useReducer<Position, any>(reducer, {posY: 100, posX: 100})
+  const [position, dispatch] = useReducer<Position, [Action]>(reducer, {posY: 100, posX: 100})
   const [nombre, setNombre] = useState<string>('Charly')
   const [apellido, setApellido] = useState<string>('Falco')
 
